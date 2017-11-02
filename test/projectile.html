@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head><style type="text/css">body {
+    padding: 3em;
+}</style>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/gdaunton/Semantic-UI/range-slider-build/dist/semantic.js"></script>
+<link rel="stylesheet" href="https://rawgit.com/gdaunton/Semantic-UI/range-slider-build/dist/semantic.css">
+ 
+<title>HTML, CSS and JavaScript demo</title>
+</head>
+
+  
+<body>
+<!-- Start your code here -->
+
+<div class="ui form">
+<div class="field remote">
+	<h1>Projectile Motion Result</h1>
+	
+	<h2>Initial Velocity (m/s)</h2>
+	<div class="ui input">
+		<input type="text" id="initial-velocity" value="10">
+	</div>
+	
+  <h2>Meter (cm)</h2>
+  <div class="ui segment">
+    <div id="range-meter" class="ui range" tabindex="0"><div class="inner"><div class="track"></div><div class="track-fill" style="width: 0px;"></div><div class="thumb" style="left: -10.5px;"></div></div></div>
+    <p id="display-meter">10</p>
+  </div>
+	
+	<h2>Angle</h2>
+	<div class="ui inverted segment massive">
+  	<span id="result">85.49</span>°
+	</div>
+
+</div>
+</div>
+
+
+
+
+<!-- End your code here -->
+
+<script>$(document).ready(function() {
+    
+  // No Step
+  $('#range-meter').range({
+    min: 10,
+    max: 1000,
+    start: 100,
+    step: 0,
+    onChange: function(value) {
+			$('#display-meter').html(value);
+			var initial_velocity = $('#initial-velocity').val();
+			console.log(initial_velocity);
+			var theta = calcTheta(initial_velocity,value);
+			$('#result').html(theta.toFixed(2));
+    }
+  });
+  
+});
+
+function sq(num) {
+   return num * num;
+}
+
+function calcTheta(initial_velocity, x_input) {
+  //var v_o = 10;
+	var v_o = initial_velocity;
+  var g = 9.8;
+  var y_o = 20;
+
+  var x_input = x_input/100.;
+  var tantheta = (x_input - Math.sqrt(sq(x_input) + 2*g*sq(x_input/v_o)*(y_o - 0.5*g*sq(x_input/v_o))))*(-1./sq(g*(x_input/v_o)));
+  var theta = Math.atan(tantheta)/Math.PI*180.;
+	return theta;
+}</script></body>
