@@ -86,7 +86,7 @@
       var y_o = 20;
       var x_input = x_input/100.0;
       var tantheta = (x_input - Math.sqrt(squ(x_input) + 2*g*squ(x_input/v_o)*(y_o - 0.5*g*squ(x_input/v_o))))*(-1.0/(g*squ(x_input/v_o)));
-      var theta = Math.atan(tantheta)/Math.PI*180.0;
+      var theta = 90 - Math.atan(tantheta)/Math.PI*180.0;
       return theta;
     }
   </script>
